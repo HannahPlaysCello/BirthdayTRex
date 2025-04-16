@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Abigail!</title>
+  <style>
+    body {
+      background-color: #AEEAFB;
+      text-align: center;
+      padding-top: 50px;
+      font-family: sans-serif;
+    }
+
+    img {
+      width: 640px;
+      max-width: 90vw;
+      cursor: pointer;
+      image-rendering: pixelated;
+    }
+  </style>
+</head>
+<body>
+
+  <img id="trex-gif" src="GreenTRex1.gif" alt="Birthday T-Rex 1">
+
+  <script>
+    const gif = document.getElementById("trex-gif");
+    const stages = ["GreenTRex1.gif", "GreenTRex2.gif", "GreenTRex3.gif", "GreenTRex4.gif"];
+    let current = 0;
+
+    gif.addEventListener("click", () => {
+      if (current < stages.length - 1) {
+        current++;
+        gif.src = stages[current] + "?v=" + new Date().getTime(); // busts cache so gif restarts
+      }
+    });
+  </script>
+
+</body>
+</html>
