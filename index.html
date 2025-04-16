@@ -2,38 +2,109 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Happy Birthday T Rex</title>
+  <title>Happy Birthday Abigail!</title>
   <style>
     body {
       background-color: #AEEAFB;
       text-align: center;
-      padding-top: 50px;
+      padding-top: 20px;
       font-family: sans-serif;
     }
 
     img {
-      width: 640px;
+      width: 576px;
       max-width: 90vw;
       cursor: pointer;
       image-rendering: pixelated;
     }
+
+    #helper-text {
+      font-size: 1.25rem;
+      color: #4D2C3D;
+      //margin-top: 20px;
+      transition: opacity 0.5s ease;
+    }
+
+    #confetti {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background-color: red;
+      animation: fall 3s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+
   </style>
 </head>
 <body>
 
-  <img id="trex-gif" src="GreenTRex1.GIF" alt="Birthday T-Rex 1">
+  <img id="trex-gif" src="GreenTRex1.gif" alt="Birthday T-Rex 1">
+  <p id="helper-text">Click the present to help Dino open it!</p>
+  <div id="confetti"></div>
 
   <script>
     const gif = document.getElementById("trex-gif");
-    const stages = ["GreenTRex1.GIF", "GreenTRex2.GIF", "GreenTRex3.GIF", "GreenTRex4.GIF"];
+    const helper = document.getElementById("helper-text");
+    const stages = ["GreenTRex1.gif", "GreenTRex2.gif", "GreenTRex3.gif", "GreenTRex4.gif"];
     let current = 0;
 
-   gif.addEventListener("click", () => {
+    gif.addEventListener("click", () => {
       if (current < stages.length - 1) {
         current++;
-        gif.src = stages[current] + "?v=" + new Date().getTime(); // busts cache so gif restarts
+        gif.src = stages[current] + "?v=" + new Date().getTime();
+
+	if (current === stages.length - 1) {
+	  launchConfetti();
+	}
+    } else if (current === stages.length - 1) {
+          launchConfetti();
+      }
+    
+      if (current === 1 && helper) {
+        helper.style.opacity = "0";
       }
     });
+
+    function launchConfetti() {
+      const confettiContainer = document.getElementById("confetti");
+      const colors = ["#FFD93D", "#E47DB4", "#6CAD4F", "#AEEAFB", "#FAFAFA"];
+      const pieces = [];
+
+      for (let i = 0; i < 100; i++) {
+        const piece = document.createElement("span");
+        piece.classList.add("confetti-piece");
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.top = `${-Math.random() * 20}px`;
+        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDuration = `${2 + Math.random() * 2}s`;
+        confettiContainer.appendChild(piece);
+        pieces.push(piece);
+      }
+
+      setTimeout(() => {
+        pieces.forEach(piece => piece.remove());
+      }, 10000);
+    }
   </script>
 
 </body>
