@@ -29,9 +29,13 @@
     let current = 0;
 
     gif.addEventListener("click", () => {
+      console.log("Clicked! Current stage:", current);
       if (current < stages.length - 1) {
         current++;
-        gif.src = stages[current] + "?v=" + new Date().getTime(); // busts cache so gif restarts
+        console.log("Switching to:", stages[current]);
+        gif.src = stages[current] + "?v=" + new Date().getTime(); // busts cache
+      } else {
+        console.log("No more stages.");
       }
     });
   </script>
