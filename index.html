@@ -28,14 +28,10 @@
     const stages = ["GreenTRex1.GIF", "GreenTRex2.GIF", "GreenTRex3.GIF", "GreenTRex4.GIF"];
     let current = 0;
 
-    gif.addEventListener("click", () => {
-      console.log("Clicked! Current stage:", current);
+   gif.addEventListener("click", () => {
       if (current < stages.length - 1) {
         current++;
-        console.log("Switching to:", stages[current]);
-        gif.src = stages[current] + "?v=" + new Date().getTime(); // busts cache
-      } else {
-        console.log("No more stages.");
+        gif.src = stages[current] + "?v=" + new Date().getTime(); // busts cache so gif restarts
       }
     });
   </script>
